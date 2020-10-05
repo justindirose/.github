@@ -17,4 +17,4 @@ jobs:
           dst_path: /.github/workflows/
           dst_owner: justindirose
           dst_repo_name: ${{ matrix.repositories }}
-          file_filter: *.yml
+          file_filter: "*.yml"
