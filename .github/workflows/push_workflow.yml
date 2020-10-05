@@ -12,7 +12,7 @@ jobs:
       - name: copy workflows
         uses: andstor/copycat-action@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.github_token }}
           src_path: workflow-templates/.
           src_branch: main 
           dst_path: /.github/workflows/
