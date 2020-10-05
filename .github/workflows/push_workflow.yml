@@ -1,0 +1,20 @@
+name: Push Workflow
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        repositories: ["discourse-subscriptions", "discourse-assign"]
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: copy workflows
+        uses: andstor/copycat-action@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          src_path: /workflow-templates/.
+          dst_path: /.github/workflows/
+          dst_owner: justindirose
+          dst_repo_name: ${{ matrix.repositories }}
+          file_filter: *.yml
