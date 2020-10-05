@@ -14,6 +14,7 @@ jobs:
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           src_path: workflow-templates/.
+          src_branch: main 
           dst_path: /.github/workflows/
           dst_owner: justindirose
           dst_repo_name: ${{ matrix.repositories }}
