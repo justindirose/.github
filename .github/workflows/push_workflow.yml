@@ -15,12 +15,12 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: copy workflows
-        uses: andstor/copycat-action@v3
+        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          src_path: workflow-templates/.
-          src_branch: main 
-          dst_path: /.github/workflows/
-          dst_owner: justindirose
-          dst_repo_name: ${{ matrix.repositories }}
-          file_filter: "*.yml"
+          source_file: 'workflow-templates/*.yml' 
+          destination_repo: 'justindirose/${{ matrix.repositories }}'
+          destination-folder: '.github/workflows'
+          user_email: 'ci@discourse'
+          user_name: 'ci'
