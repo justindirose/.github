@@ -1,6 +1,11 @@
 name: Push Workflow
 
-on: [push]
+on: 
+  push:
+    branches:
+      - master
+    paths:
+      - '!.github/**'
 
 jobs:
   build:
@@ -12,7 +17,7 @@ jobs:
       - name: copy workflows
         uses: andstor/copycat-action@v3
         with:
-          personal_token: ${{ secrets.github_token }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           src_path: workflow-templates/.
           src_branch: main 
           dst_path: /.github/workflows/
