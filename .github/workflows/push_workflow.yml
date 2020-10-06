@@ -3,7 +3,7 @@ name: Push Workflow
 on: 
   push:
     branches:
-      - master
+      - main
     paths:
       - '!.github/**'
 
