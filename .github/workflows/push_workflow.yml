@@ -19,8 +19,8 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          source_file: 'workflow-templates/*.yml' 
-          destination_repo: 'justindirose/${{ matrix.repositories }}'
-          destination-folder: '.github/workflows'
+          source_file: workflow-templates/*.yml 
+          destination_repo: justindirose/${{ matrix.repositories }}
+          destination-folder: .github/workflows
           user_email: 'ci@discourse'
           user_name: 'ci'
