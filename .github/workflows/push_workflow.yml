@@ -14,10 +14,13 @@ jobs:
         repositories: ["discourse-subscriptions", "discourse-assign"]
     runs-on: [ubuntu-latest]
     steps:
-      - run: |
+      - env: 
+          TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          REPO: ${{ matrix.repositories }}
+        run: |
           git clone https://github.com/justindirose/.github ci
           echo "Cloning plugin"
-          git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/justindirose/${{ matrix.repositories }} plugin
+          git clone https://$TOKEN@github.com/justindirose/$REPO plugin
           echo "Copying files"
           cp ci/workflow-templates/*.yml plugin/.github/workflows/
           echo "Committing changes"
