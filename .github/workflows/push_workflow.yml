@@ -26,11 +26,14 @@ jobs:
           path: plugin
       - name: copy files
         run: |
-          [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows
+          echo "making directories"
+          [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows | echo
+          echo "copying files"
           cp ci/workflow-templates/*.yml plugin/.github/workflows
       - name: commit changes
         uses: actions/checkout@v2
       - run: |
+          echo pwd
           cd plugin
           git config user.email "ci@discourse"
           git config user.name "Discourse CI"
