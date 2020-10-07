@@ -13,14 +13,13 @@ jobs:
       matrix:
         repositories: ["discourse-subscriptions", "discourse-assign"]
     runs-on: [ubuntu-latest]
-    steps:
-      - name: copy workflows
-        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.PERSONAL_TOKEN }}
-        with:
-          source_file: workflow-templates/test.yml 
-          destination_repo: justindirose/${{ matrix.repositories }}
-          destination-folder: .github/workflows
-          user_email: 'ci@discourse'
-          user_name: 'ci'
+    run: |
+      git config user.email "ci@discourse"
+      git config user.name "Discourse CI"
+      git clone https://github.com/justindirose/.github ci
+      git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/justindirose/${{ matrix.repositories }} plugin
+      cp ci/workflow-templates/*.yml plugin/.github/workflows/
+      cd plugin
+      git add -A
+      git commit -m "Updates to CI workflows"
+      git push origin master
