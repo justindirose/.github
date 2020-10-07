@@ -31,7 +31,8 @@ jobs:
           cp ci/workflow-templates/*.yml plugin/.github/workflows
       - name: commit changes
         run: |
-          cd && cd plugin
+          pwd
+          cd plugin
           git config user.email "ci@discourse"
           git config user.name "Discourse CI"
           git add -A
