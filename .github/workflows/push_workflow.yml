@@ -14,27 +14,22 @@ jobs:
         repositories: ["discourse-subscriptions", "discourse-assign"]
     runs-on: [ubuntu-latest]
     steps:
+      - uses: actions/checkout@v2
       - name: checkout workflows
-        uses: actions/checkout@v2
         with:
           path: ci
       - name: checkout plugin
-        uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: justindirose/${{ matrix.repositories }}
           path: plugin
       - name: copy files
         run: |
-          echo "making directories"
-          [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows | echo
-          echo "copying files"
+          [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows
           cp ci/workflow-templates/*.yml plugin/.github/workflows
       - name: commit changes
-        uses: actions/checkout@v2
-      - run: |
-          echo pwd
-          cd plugin
+        run: |
+          cd && cd plugin
           git config user.email "ci@discourse"
           git config user.name "Discourse CI"
           git add -A
