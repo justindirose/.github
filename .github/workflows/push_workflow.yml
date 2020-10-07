@@ -25,7 +25,9 @@ jobs:
           repository: justindirose/${{ matrix.repositories }}
           path: plugin
       - name: copy files
-        run: cp ci/workflow-templates/*.yml plugin/.github/workflows
+        run: |
+          [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows
+          cp ci/workflow-templates/*.yml plugin/.github/workflows
       - name: commit changes
         uses: actions/checkout@v2
       - run: |
