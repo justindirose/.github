@@ -16,9 +16,7 @@ jobs:
     steps:
       - run: |
           git clone https://github.com/justindirose/.github ci
-          
-          
-#git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/justindirose/${{ matrix.repositories }} plugin
+          git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/justindirose/${{ matrix.repositories }} plugin
 #cp ci/workflow-templates/*.yml plugin/.github/workflows/
 #cd plugin
 #git config user.email "ci@discourse"
