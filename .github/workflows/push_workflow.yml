@@ -16,9 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: checkout workflows
+        uses: actions/checkout@v2
         with:
           path: ci
       - name: checkout plugin
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: justindirose/${{ matrix.repositories }}
