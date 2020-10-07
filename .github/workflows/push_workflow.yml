@@ -15,12 +15,12 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - run: |
-          git config user.email "ci@discourse"
-          git config user.name "Discourse CI"
           git clone https://github.com/justindirose/.github ci
           git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/justindirose/${{ matrix.repositories }} plugin
           cp ci/workflow-templates/*.yml plugin/.github/workflows/
           cd plugin
+          git config user.email "ci@discourse"
+          git config user.name "Discourse CI"
           git add -A
           git commit -m "Updates to CI workflows"
           git push origin master
