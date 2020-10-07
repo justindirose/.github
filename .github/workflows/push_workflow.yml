@@ -16,17 +16,20 @@ jobs:
     steps:
       - name: checkout workflows
         uses: actions/checkout@v2
+        with:
+          path: ci
       - name: checkout plugin
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: justindirose/${{ matrix.repositories }}
+          path: plugin
       - name: copy files
-        run: cp .github/workflow-templates/*.yml ${{ matrix.repositories }}/.github/workflows
+        run: cp ci/workflow-templates/*.yml plugin/.github/workflows
       - name: commit changes
         uses: actions/checkout@v2
       - run: |
-          cd ${{ matrix.repositories }}
+          cd plugin
           git config user.email "ci@discourse"
           git config user.name "Discourse CI"
           git add -A
