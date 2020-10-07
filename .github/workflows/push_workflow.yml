@@ -14,13 +14,21 @@ jobs:
         repositories: ["discourse-subscriptions", "discourse-assign"]
     runs-on: [ubuntu-latest]
     steps:
+      - name: checkout workflows
+        uses: actions/checkout@v2
+      - name: checkout plugin
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          repository: justindirose/${{ matrix.repositories }}
+      - name: copy files
+        run: cp .github/workflow-templates/*.yml ${{ matrix.repositories }}/.github/workflows
+      - name: commit changes
+        uses: actions/checkout@v2
       - run: |
-          git clone https://github.com/justindirose/.github ci
-          echo "git clone https://${{ secrets.FAKE_TOKEN }}:x-oauth-basic@github.com/justindirose/${{ matrix.repositories }} plugin"
-#cp ci/workflow-templates/*.yml plugin/.github/workflows/
-#cd plugin
-#git config user.email "ci@discourse"
-#git config user.name "Discourse CI"
-#git add -A
-#git commit -m "Updates to CI workflows"
-#git push origin master
+          cd ${{ matrix.repositories }}
+          git config user.email "ci@discourse"
+          git config user.name "Discourse CI"
+          git add -A
+          git commit -m "Updates to CI workflows"
+          git push 
