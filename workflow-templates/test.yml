@@ -39,7 +39,3 @@ jobs:
 
     - name: Rubocop
       run: bundle exec rubocop .
-
-
-
-
