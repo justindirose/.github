@@ -29,12 +29,15 @@ jobs:
         run: |
           [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows
           cp ci/workflow-templates/*.yml plugin/.github/workflows
-      - name: commit changes
-        run: |
-          pwd
-          cd plugin
-          git config user.email "ci@discourse"
-          git config user.name "Discourse CI"
-          git add -A
-          git commit -m "Updates to CI workflows"
-          git push 
+      - name: create pr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          commit-message: Update CI
+          committer: Discourse CI <ci@discourse>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          branch: ci-update
+          delete-branch: true
+          body: |
+            Update plugin linting and testing CI with latest workflows
+            
