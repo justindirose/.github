@@ -45,7 +45,7 @@ jobs:
             -u justindirose:${{ secrets.PERSONAL_TOKEN }}
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/discourse/${{ matrix.repositories }}/pulls \
+            https://api.github.com/repos/justindirose/${{ matrix.repositories }}/pulls \
             -d '{"head":"update-ci","base":"master","title":"Update CI","body":"Automatic CI update PR"}'
             
             
