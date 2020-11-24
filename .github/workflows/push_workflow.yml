@@ -29,23 +29,12 @@ jobs:
         run: |
           [ ! -d "plugin/.github/workflows" ] && mkdir -p plugin/.github/workflows
           cp ci/workflow-templates/*.yml plugin/.github/workflows
-      - name: commit changes
-        run: |
-          pwd
-          cd plugin
-          git config user.email "ci@discourse"
-          git config user.name "Discourse CI"
-          git checkout -b update-ci
-          git add -A
-          git commit -m "Updates to CI workflows"
-          git push --set-upstream origin update-ci
-      - name: create pull request
-        run: |
-          curl \
-            -u justindirose:${{ secrets.PERSONAL_TOKEN }}
-            -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/justindirose/${{ matrix.repositories }}/pulls \
-            -d '{"head":"update-ci","base":"master","title":"Update CI","body":"Automatic CI update PR"}'
-            
-            
+      - name: create PR
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          path: plugin
+          branch: update-ci
+          title: 'DEV: Update CI workflows'
+          body: |
+            Updates CI from discourse/.github
